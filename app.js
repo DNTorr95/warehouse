@@ -6,6 +6,11 @@ const app = express()
 
 const PORT = process.env.PORT || 3000
 
+//app.use(express.json())
+
+var json= express.json()
+app.use(json)
+
 app.use('/', index)
 app.use('/products', products)
 

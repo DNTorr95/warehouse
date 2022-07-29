@@ -4,14 +4,13 @@
   "description": "proyecto para un almacen",
   "main": "app.js",
   "scripts": {
-    "saludar": "echo 'hola a toda la clase!'",
-    
-    "start": "node app.js",
-    "test":"",
-    "build":""
+    "start": "nodemon app.js"
   },
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }
