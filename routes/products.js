@@ -36,11 +36,10 @@ route.get('/', async (req, res) => {
 })
 
 //retorna un producto
-route.get('/:id/', (req, res) => {
+route.get('/:id/', async (req, res) => {
     var { id } = req.params
-    var result = data.find((item) =>  item.id == id )
+    var result = await service.get(id)
     res.json(result)
-
 })
 
 
@@ -104,11 +103,9 @@ route.put('/:id', (req, res) => {
 
 
 //eliminar productos
-route.delete('/:id', (req, res) => {
+route.delete('/:id',async (req, res) => {
     var { id } = req.params
-    var item = data.find((item)=>item.id==id)
-    var index = data.indexOf(item)
-    data.splice(index, 1)
-    res.json({'state': 'ok' })
+    var result = await service.delete(id)
+    res.json({"delete": result})
 })
 module.exports = route 

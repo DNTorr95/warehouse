@@ -1,10 +1,11 @@
-const { MongoClient } = require('mongodb')
-const client = new MongoClient('mongodb://localhost:27017')
+const { MongoClient, ObjectId } = require('mongodb')
+
 class productService {
     
     collection
     
     constructor() {
+        const client = new MongoClient('mongodb://localhost:27017')
         client.connect()
         const db = client.db('warehouse');
         this.collection = db.collection('products');
@@ -12,15 +13,43 @@ class productService {
     }
 
     async list() {
+        try{ 
         var result = await this.collection.find().toArray()
         return result
+    } catch (error){
+        console.log(error)
+        return 
+    }
     }
 
-    get() {
+    async get(id) {
+    try{ 
 
+        var objectId = new ObjectId(id)
+        var result = await this.collection.find({"_id":ObjectId}).toArray()
+        return result
+    }catch(error){
+        console.log(error);
+        return 
+      }
+ }
+ async getByName(name) {
+    try{ 
+        var result = await this.collection.find({"name":name}).toArray()
+        return result
+    }catch(error){
+        console.log(error);
+        return 
+      }
+ }
+    async delete(id) {
+        try { 
+       var result = await this.collection.deleteOne({"_id": new ObjectId(id) })
+       return (result.acknowledged == true && result.deletedCount == 1)
+    } catch(error){
+        console.log(error);
+        return
     }
-    delete() {
-
     }
 
     update() {
